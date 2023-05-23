@@ -19,3 +19,5 @@ class ToDoList {
         }
     }
 }
+
+export {ToDoList}
