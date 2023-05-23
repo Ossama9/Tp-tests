@@ -6,11 +6,11 @@ class ToDoList {
     }
 
     canAddItem() {
-
+        
     }
 
     add(item) {
-        if (this.isValidUser() && this.canAddItem()) {
+        if (this.canAddItem()) {
             this.items.push(item);
             this.lastItemCreationDate = item.creationDate;
             console.log('Item ajouté à la ToDoList.');
