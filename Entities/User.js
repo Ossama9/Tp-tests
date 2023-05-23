@@ -56,8 +56,13 @@ class User {
         }
     }
 
+    isValidEmail() {
+        const regexEmail = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
+        return regexEmail.test(this.email);
+    }
+
     isValidUser(){
-        if (this.isValidFirstname() && this.isValidLastname() && this.isValidPassword() && this.isValidAge()) {
+        if (this.isValidFirstname() && this.isValidLastname() && this.isValidPassword() && this.isValidAge() && this.isValidEmail() ) {
             return true;
         } else {
             return false;

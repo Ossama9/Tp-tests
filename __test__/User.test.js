@@ -9,11 +9,12 @@ describe('User', () => {
             "John",
             "Password1234",
             "01/01/1990",
-
         );
     });
 
     it('Verification email', () => {
-        const res = estEmail(user.email);
+        const res = isValidEmail();
         expect(res).toBe(true);
     });
+
+}
