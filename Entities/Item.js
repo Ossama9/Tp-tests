@@ -28,7 +28,7 @@ class Item{
 
     createItem(){
         if (this.isValidItem()){
-            return this
+            return JSON.stringify(this)
         }
     }
 }
