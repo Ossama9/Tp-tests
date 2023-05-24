@@ -14,6 +14,10 @@ class Item{
         }
          */
 
+        if (!this.name || !this.description || !this.state) {
+            return false
+        }
+
         //check max chracters(1000)
         if (this.name.length > 1000){
             return false;
