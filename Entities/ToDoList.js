@@ -1,12 +1,8 @@
 const User = require("./User");
 
 class ToDoList {
-    /**
-     * @param {User} user - L'objet utilisateur associé à l'instance.
-     * @property {User} user - L'objet utilisateur associé à l'instance.
-     * @property {Array} items - Un tableau vide pour stocker les objets d'éléments.
-     * @property {Date|null} lastItemCreationDate - La date et l'heure de création du dernier élément, ou null s'il n'y a pas encore eu de création d'élément.
-     */
+
+    // constructor(user) {
     constructor(user) {
         this.user = user;
         this.items = [];
