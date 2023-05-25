@@ -12,8 +12,8 @@ class ToDoList {
     }
 
     isItemNameUnique(newItemName) {
-        const condition = (item) => item.name === newItemName
-        return this.items.some(condition) === false;
+        const condition = (item) => item.name !== newItemName
+        return this.items.some(condition);
     }
 
     canAddItem(item) {
