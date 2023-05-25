@@ -4,44 +4,43 @@ describe('User', () => {
     let user;
     beforeEach(() => {
         user = new User(
-            "johndoe@example.com",
+            "john",
             "Doe",
-            "John",
+            "Johndoe@example.com",
             "Password1234",
             "01/01/1990",
         );
     });
 
     it('Test email', () => {
-        const res = isValidEmail();
+        const res = user.isValidEmail();
         expect(res).toBe(true);
     });
 
-
     it('Test Lastname', () => {
-        const res = isValidLastname();
+        const res = user.isValidLastname();
         expect(res).toBe(true);
     });
 
     it('Test Firstname', () => {
-        const res = isValidFirstname();
+        const res = user.isValidFirstname();
         expect(res).toBe(true);
     });
 
     it('Test Password', () => {
-        const res = isValidPassword();
+        const res = user.isValidPassword();
         expect(res).toBe(true);
     });
 
 
     it('Test Age', () => {
-        const res = isValidAge();
+        const res = user.isValidAge();
         expect(res).toBe(true);
     });
 
     it('Test User', () => {
-        const res = isValidUser();
+        const res = user.isValidUser();
         expect(res).toBe(true);
     });
 
-}
+})

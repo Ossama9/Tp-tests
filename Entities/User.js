@@ -57,7 +57,7 @@ class User {
     }
 
     isValidEmail() {
-        const regexEmail = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
+        const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return regexEmail.test(this.email);
     }
 
