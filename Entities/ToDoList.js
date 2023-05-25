@@ -11,32 +11,27 @@ class ToDoList {
         this.lastItemCreationDate = null;
     }
 
-    isItemNameUnique(newItemName: string) {
+    isItemNameUnique(newItemName) {
         const condition = (item) => item.name === newItemName
-        this.items.some()
+        return this.items.some(condition) === false;
     }
 
-    canAddItem() {
-        const date_now = new Date();
-        const limit_date = new Date(date_now.getTime() - (30 * 60000));
-        if (this.lastItemCreationDate < limit_date) {
-            console.log("ok")
-        } else {
-            console.log("non")
-        }
-        this.items.forEach()
-
+    canAddItem(item) {
+        const limit_date = new Date(new Date() - (30 * 60000));
+        return this.lastItemCreationDate <= limit_date && this.isItemNameUnique(item.name) === true;
     }
 
     add(item) {
-        if (this.canAddItem()) {
+        if (this.canAddItem(item)) {
             this.items.push(item);
-            this.lastItemCreationDate = item.creationDate;
-            console.log('Item ajouté à la ToDoList.');
+            this.lastItemCreationDate = item.createdAt;
+            return true
         } else {
-            console.log('Impossible d\'ajouter l\'item à la ToDoList.');
+            return false
         }
     }
 }
 
-export {ToDoList}
+module.exports = {
+    ToDoList
+}
