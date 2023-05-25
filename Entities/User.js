@@ -1,11 +1,11 @@
 class User {
-    constructor(lastname, firstname, email, password, dateOfBirth, toDoList) {
+    constructor(lastname, firstname, email, password, dateOfBirth) {
         this.lastname = lastname;
         this.firstname = firstname;
         this.email = email;
         this.password = password;
         this.dateOfBirth = dateOfBirth;
-        this.toDoList = toDoList;
+        this.toDoList = null;
     }
 
     isValidLastname(){
@@ -42,13 +42,9 @@ class User {
 
     isValidAge(){
         const dateOfBirth = new Date(this.dateOfBirth);
-
         const currentDate = new Date();
-
         const differenceInMilliseconds = currentDate - dateOfBirth;
-
         const yearsDifference = differenceInMilliseconds / (1000 * 60 * 60 * 24 * 365.25);
-
         if (yearsDifference >= 13) {
             return true;
         } else {
@@ -59,6 +55,25 @@ class User {
     isValidEmail() {
         const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return regexEmail.test(this.email);
+    }
+
+    addTodoList(TodoList){
+        if (this.AddTodoListVerif()){
+            this.toDoList = TodoList;
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    AddTodoListVerif(){
+        if(this.toDoList===null && this.isValidUser()){
+            return true
+        }
+        else {
+            return false
+        }
     }
 
     isValidUser(){
