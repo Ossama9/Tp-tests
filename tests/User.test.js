@@ -50,11 +50,41 @@ describe('User', () => {
         const res = user.isValidPassword();
         expect(res).toBe(true);
     });
-    it('Test not strong password', () => {
-        user.password = "test"
+    it('Test Password non Valide', () => {
+        user.password = "TEST555622222222";
         const res = user.isValidPassword();
         expect(res).toBe(false);
     });
+    it('Test strong password', () => {
+        user.password = "TEST"
+        const res = user.hasUppercasePassword();
+        expect(res).toBe(true);
+    });
+    it('Test not strong password', () => {
+        user.password = "test"
+        const res = user.hasLowercasePassword();
+        expect(res).toBe(true);
+    })
+    it('Test length valid password', () => {
+        user.password = "TEST14565"
+        const res = user.isLengthValidPassword();
+        expect(res).toBe(true);
+    });
+    it('Test length not valid password', () => {
+        user.password = "test155666666666666666666666666666666666666666664554584545<"
+        const res = user.isLengthValidPassword();
+        expect(res).toBe(false);
+    })
+    it('Test digit valid password', () => {
+        user.password = "1233"
+        const res = user.hasDigitPassword();
+        expect(res).toBe(true);
+    })
+    it('Test digit not valid password', () => {
+        user.password = "test"
+        const res = user.hasDigitPassword();
+        expect(res).toBe(false);
+    })
     
 
     //Test valid age
