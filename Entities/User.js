@@ -9,31 +9,53 @@ class User {
     }
 
     isValidLastname(){
-        if (this.lastname != null){
-            return true;
-        } else {
+        if (!this.lastname){
             return false;
         }
+        return true;
     }
 
     isValidFirstname(){
-        if (this.firstname != null){
+        if (!this.firstname){
+            return false;
+        }
+        return true;
+    }
+
+    isLengthValidPassword() {
+        if (this.password.length >= 8 && this.password.length <= 40) {
             return true;
-        } else {
+        }
+        else {
             return false;
         }
     }
-
+    hasLowercasePassword() {
+        if (/[a-z]/.test(this.password)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    hasUppercasePassword() {
+        if (/[A-Z]/.test(this.password)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    hasDigitPassword() {
+        if (/\d/.test(this.password)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
     isValidPassword(){
-        const isLengthValid = this.password.length >= 8 && this.password.length <= 40;
-
-        const hasLowercase = /[a-z]/.test(this.password);
-
-        const hasUppercase = /[A-Z]/.test(this.password);
-
-        const hasDigit = /\d/.test(this.password);
-
-        if (isLengthValid && hasLowercase && hasUppercase && hasDigit) {
+        if (this.isLengthValidPassword() && this.hasLowercasePassword() && this.hasUppercasePassword() && this.hasDigitPassword()) {
             return true;
         } else {
             return false;
@@ -45,7 +67,7 @@ class User {
         const currentDate = new Date();
         const differenceInMilliseconds = currentDate - dateOfBirth;
         const yearsDifference = differenceInMilliseconds / (1000 * 60 * 60 * 24 * 365.25);
-        if (yearsDifference >= 13) {
+        if (this.dateOfBirth && yearsDifference >= 13) {
             return true;
         } else {
             return false;
@@ -54,7 +76,7 @@ class User {
 
     isValidEmail() {
         const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return regexEmail.test(this.email);
+        return this.email && regexEmail.test(this.email);
     }
 
     addTodoList(TodoList){
@@ -87,3 +109,4 @@ class User {
 }
 
 module.exports = User;
+

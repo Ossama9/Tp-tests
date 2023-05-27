@@ -1,12 +1,7 @@
 const User = require('../Entities/User')
 
 class ToDoList {
-    /**
-     * @param {object} user - L'objet utilisateur associé à l'instance.
-     * @property {object} user - L'objet utilisateur associé à l'instance.
-     * @property {Array} items - Un tableau vide pour stocker les objets d'éléments.
-     * @property {Date|null} lastItemCreationDate - La date et l'heure de création du dernier élément, ou null s'il n'y a pas encore eu de création d'élément.
-     */
+
     constructor(user) {
 
         if (!(user instanceof User)) {
@@ -24,7 +19,7 @@ class ToDoList {
 
     canAddItem(item) {
         const limit_date = new Date(new Date() - (30 * 60000));
-        return this.lastItemCreationDate <= limit_date && this.isItemNameUnique(item.name) === true;
+        return this.lastItemCreationDate <= limit_date && this.isItemNameUnique(item.name) === true && this.user.isValidUser();
     }
 
     add(item) {
