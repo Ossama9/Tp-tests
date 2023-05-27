@@ -6,29 +6,11 @@ class Item{
     }
 
     isValidItem(){
-        //valid user
-        /*
-        if (!isValidUser){
-            return false
-        }
-         */
-
         if (!this.name || !this.description) {
             return false
         }
-
         //check max chracters(1000)
-        if (this.name.length > 1000){
-            return false;
-        }
-
-        return true
-    }
-
-    createItem(){
-        if (this.isValidItem()){
-            return JSON.stringify(this)
-        }
+        return this.name.length <= 1000;
     }
 }
 

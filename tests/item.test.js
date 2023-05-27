@@ -1,4 +1,5 @@
 const {Item} = require('../Entities/Item')
+const EmailSenderService = require("../Services/EmailSenderService");
 const {ToDoList} = require('../Entities/ToDoList')
 const User = require('../Entities/User');
 const {generate_list_with_30min_interval} = require("../Utils/ItemsUtils");
@@ -6,6 +7,7 @@ const {generate_list_with_30min_interval} = require("../Utils/ItemsUtils");
 describe('Item', () => {
     const validItem = new Item("test", "Ceci est une descr");
     const secondItem = new Item("secondItem", "Ceci est une descr");
+    EmailSenderService.sendEmail = jest.fn().mockReturnValue(true);
 
     const validUser = new User(
         "john",
@@ -94,4 +96,43 @@ describe('Item', () => {
         const newItem = new Item(validItem.name, "test")
         expect(myList.add(newItem)).toBe(false);
     });
+
+    // Vérifier qu'un e-mail est envoyé à l'utilisateur lorsque le 8ème item est ajouté à sa ToDoList
+    test('Verify that an email is sent to the user when the 8th item is added to their ToDoList', () => {
+        const sendEmailSpy = jest.spyOn(EmailSenderService, 'sendEmail');
+        const myUser = new User(
+            "john",
+            "Doe",
+            "Johndoe@example.com",
+            "Password1234",
+            "01/01/1990",
+        );
+        const myList = new ToDoList(myUser);
+        const listItems = generate_list_with_30min_interval(8)
+        for (const item of listItems) {
+            expect(myList.add(item)).toBe(true)
+        }
+        expect(sendEmailSpy).toHaveBeenCalled();
+    });
+
+    // Vérifier que l'e-mail n'est pas envoyé tant que le 8ème élément n'est pas ajouté
+    test('Check that the email is not sent until the 8th item is added', () => {
+        EmailSenderService.sendEmail = jest.fn().mockReturnValue(true);
+        const sendEmailSpy = jest.spyOn(EmailSenderService, 'sendEmail');
+        const myUser = new User(
+            "john",
+            "Doe",
+            "Johndoe@example.com",
+            "Password1234",
+            "01/01/1990",
+        );
+        const myList = new ToDoList(myUser);
+        const listItems = generate_list_with_30min_interval(7)
+        for (const item of listItems) {
+            expect(myList.add(item)).toBe(true)
+        }
+        expect(sendEmailSpy).not.toHaveBeenCalled();
+    });
+
 });
+
