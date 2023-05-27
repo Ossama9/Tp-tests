@@ -1,8 +1,5 @@
 class EmailSenderService{
-    constructor(user) {
-        this.user = user
-    }
-    sendEmail(){
+    static sendEmail(){
         throw new Error("Not implemented yet");
     }
 }

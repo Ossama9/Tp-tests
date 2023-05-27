@@ -5,7 +5,7 @@ function generate_list_with_30min_interval(number_items) {
     for (let i = 0; i < number_items; i++) {
         const item = new Item(`item-number${i}`, `description-number${i}`)
         const current_date = new Date()
-        item.createdAt = current_date.setMinutes(current_date.getMinutes() - ( i * 31))
+        item.createdAt = current_date.setMinutes(current_date.getMinutes() - ( i * 60))
         result.push(item)
     }
     return result

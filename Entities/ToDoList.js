@@ -1,4 +1,5 @@
 const User = require('../Entities/User')
+const EmailSenderService = require("../Services/EmailSenderService");
 
 class ToDoList {
 
@@ -18,7 +19,7 @@ class ToDoList {
     }
 
     canAddItem(item) {
-        const limit_date = new Date(new Date() - (30 * 60000));
+        const limit_date = this.lastItemCreationDate === null ? new Date() : new Date(this.lastItemCreationDate + (30 * 60000));
         return this.lastItemCreationDate <= limit_date && this.isItemNameUnique(item.name) === true && this.user.isValidUser() && this.items.length < 10;
     }
 
@@ -26,6 +27,9 @@ class ToDoList {
         if (this.canAddItem(item)) {
             this.items.push(item);
             this.lastItemCreationDate = item.createdAt;
+            if (this.items.length === 8){
+                return EmailSenderService.sendEmail() && true
+            }
             return true
         } else {
             return false
