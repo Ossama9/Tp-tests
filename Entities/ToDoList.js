@@ -14,7 +14,7 @@ class ToDoList {
     }
 
     isItemNameUnique(newItemName) {
-        return this.items.some(item => item.name !== newItemName)
+        return this.items.every(item => item.name !== newItemName);
     }
 
     canAddItem(item) {
@@ -23,7 +23,7 @@ class ToDoList {
     }
 
     add(item) {
-        if (this.canAddItem(item) && this.user.isValidUser) {
+        if (this.canAddItem(item)) {
             this.items.push(item);
             this.lastItemCreationDate = item.createdAt;
             return true
