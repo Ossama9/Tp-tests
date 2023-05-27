@@ -9,6 +9,7 @@ class Item{
         if (!this.name || !this.description) {
             return false
         }
+
         //check max chracters(1000)
         return this.name.length <= 1000;
     }
