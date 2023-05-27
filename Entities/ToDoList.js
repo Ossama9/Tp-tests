@@ -1,35 +1,30 @@
-const User = require('../Entities/User')
-const EmailSenderService = require("../Services/EmailSenderService");
-
 class ToDoList {
-
+    /**
+     * @param {object} user - L'objet utilisateur associé à l'instance.
+     * @property {object} user - L'objet utilisateur associé à l'instance.
+     * @property {Array} items - Un tableau vide pour stocker les objets d'éléments.
+     * @property {Date|null} lastItemCreationDate - La date et l'heure de création du dernier élément, ou null s'il n'y a pas encore eu de création d'élément.
+     */
     constructor(user) {
-
-        if (!(user instanceof User)) {
-            throw new Error('User doit être une instance de la classe User.');
-        }
-
         this.user = user;
         this.items = [];
         this.lastItemCreationDate = null;
     }
 
     isItemNameUnique(newItemName) {
-        return this.items.every(item => item.name !== newItemName);
+        const condition = (item) => item.name !== newItemName
+        return this.items.some(condition);
     }
 
     canAddItem(item) {
-        const limit_date = this.lastItemCreationDate === null ? new Date() : new Date(this.lastItemCreationDate + (30 * 60000));
-        return this.lastItemCreationDate <= limit_date && this.isItemNameUnique(item.name) === true && this.user.isValidUser() && this.items.length < 10;
+        const limit_date = new Date(new Date() - (30 * 60000));
+        return this.lastItemCreationDate <= limit_date && this.isItemNameUnique(item.name) === true;
     }
 
     add(item) {
         if (this.canAddItem(item)) {
             this.items.push(item);
             this.lastItemCreationDate = item.createdAt;
-            if (this.items.length === 8){
-                return EmailSenderService.sendEmail() && true
-            }
             return true
         } else {
             return false
