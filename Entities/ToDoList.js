@@ -1,16 +1,20 @@
-const User = require("./User");
+const User = require('../Entities/User')
 
 class ToDoList {
 
     constructor(user) {
+
+        if (!(user instanceof User)) {
+            throw new Error('User doit être une instance de la classe User.');
+        }
+
         this.user = user;
         this.items = [];
         this.lastItemCreationDate = null;
     }
 
     isItemNameUnique(newItemName) {
-        const condition = (item) => item.name !== newItemName
-        return this.items.some(condition);
+        return !this.items.some(item => item.name === newItemName)
     }
 
     canAddItem(item) {
@@ -19,7 +23,7 @@ class ToDoList {
     }
 
     add(item) {
-        if (this.canAddItem(item)) {
+        if (this.canAddItem(item) && this.user.isValidUser) {
             this.items.push(item);
             this.lastItemCreationDate = item.createdAt;
             return true

@@ -1,6 +1,20 @@
 const {Item} = require('../Entities/Item')
+const {ToDoList} = require('../Entities/ToDoList')
+const User = require('../Entities/User');
 
 describe('Item', () => {
+    const validItem = new Item("test", "Ceci est une descr", "to do" );
+    const secondItem = new Item("secondItem", "Ceci est une descr", "to do" );
+
+    const validUser = new User(
+        "john",
+        "Doe",
+        "Johndoe@example.com",
+        "Password1234",
+        "01/01/1990",
+    );
+    const validToDoList = new ToDoList(validUser)
+
     test('if one property is empty', () => {
         const item = new Item("", "Ceci est une descr", "to do" )
         expect(item.isValidItem()).toBe(false);
@@ -18,7 +32,38 @@ describe('Item', () => {
     });
 
     test('is Valid item', () => {
-        const item = new Item("test", "Ceci est une descr", "to do" )
-        expect(item.isValidItem()).toBe(true);
+        expect(validItem.isValidItem()).toBe(true);
+    });
+
+    //Vérifier qu'un item valide peut être ajouté à une ToDoList existante
+    test('A valid item can be added to a ToDoList', () => {
+        expect(validToDoList.add(validItem)).toBe(true);
+    });
+
+    // Vérifier qu'un item ne peut pas être ajouté à une ToDoList si l'utilisateur n'est pas valide. (1 cas)
+    test('Cant add a new Item 30 minutes before the last adding', () => {
+        const myUser = new User(
+            "john",
+            "Doe",
+            "Johndoe@example.com",
+            "Password1234",
+            "01/01/1990",
+        );
+        const myList = new ToDoList(myUser);
+        expect(myList.add(validItem)).toBe(true);
+        expect(myList.add(secondItem)).toBe(false);
+    });
+
+    //Vérifier qu'un item ne peut pas être ajouté à une ToDoList si la période de 30 minutes entre deux items n'est pas respectée. (1 cas)
+    test('Check if a user is valid before adding an Item', () => {
+        const myUser = new User(
+            "john",
+            "Doe",
+            "Johndoeexample.com",
+            "Password1234",
+            "01/01/1990",
+        );
+        const myList = new ToDoList(myUser);
+        expect(myList.add(secondItem)).toBe(true);
     });
 });
