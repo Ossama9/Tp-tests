@@ -1,4 +1,5 @@
 const {Item} = require('../Entities/Item')
+const EmailSenderService = require("../Services/EmailSenderService");
 
 describe('Item', () => {
     test('if one property is empty', () => {
@@ -20,5 +21,11 @@ describe('Item', () => {
     test('is Valid item', () => {
         const item = new Item("test", "Ceci est une descr", "to do" )
         expect(item.isValidItem()).toBe(true);
+    });
+    test('send Email at 8 position', () => {
+        const emailSenderService = new EmailSenderService()
+        emailSenderService.sendEmail = jest.fn().mockReturnValue(true);
+        const res = emailSenderService.sendEmail()
+        expect(res).toBe(true);
     });
 });

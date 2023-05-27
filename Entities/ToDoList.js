@@ -2,7 +2,6 @@ const User = require("./User");
 
 class ToDoList {
 
-    // constructor(user) {
     constructor(user) {
         this.user = user;
         this.items = [];
