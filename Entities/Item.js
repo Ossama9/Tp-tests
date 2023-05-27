@@ -1,9 +1,8 @@
 class Item{
-    constructor(name, description, state) {
+    constructor(name, description) {
         this.name = name;
         this.description = description;
         this.createdAt = new Date();
-        this.state = state;
     }
 
     isValidItem(){
@@ -14,7 +13,7 @@ class Item{
         }
          */
 
-        if (!this.name || !this.description || !this.state) {
+        if (!this.name || !this.description) {
             return false
         }
 
