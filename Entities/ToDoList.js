@@ -14,16 +14,16 @@ class ToDoList {
     }
 
     isItemNameUnique(newItemName) {
-        return !this.items.some(item => item.name === newItemName)
+        return this.items.every(item => item.name !== newItemName);
     }
 
     canAddItem(item) {
         const limit_date = new Date(new Date() - (30 * 60000));
-        return this.lastItemCreationDate <= limit_date && this.isItemNameUnique(item.name) === true && this.user.isValidUser();
+        return this.lastItemCreationDate <= limit_date && this.isItemNameUnique(item.name) === true && this.user.isValidUser() && this.items.length < 10;
     }
 
     add(item) {
-        if (this.canAddItem(item) && this.user.isValidUser) {
+        if (this.canAddItem(item)) {
             this.items.push(item);
             this.lastItemCreationDate = item.createdAt;
             return true
