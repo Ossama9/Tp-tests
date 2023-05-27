@@ -80,7 +80,7 @@ class User {
     }
 
     addTodoList(TodoList){
-        if (this.AddTodoListVerif()){
+        if (this.iCanAddToDoList()){
             this.toDoList = TodoList;
             return true;
         }
@@ -89,13 +89,8 @@ class User {
         }
     }
 
-    AddTodoListVerif(){
-        if(this.toDoList===null && this.isValidUser()){
-            return true
-        }
-        else {
-            return false
-        }
+    iCanAddToDoList(){
+        return this.toDoList === null && this.isValidUser();
     }
 
     isValidUser(){

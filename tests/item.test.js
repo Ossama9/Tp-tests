@@ -5,10 +5,9 @@ const User = require('../Entities/User');
 const {generate_list_with_30min_interval} = require("../Utils/ItemsUtils");
 
 describe('Item', () => {
+    EmailSenderService.sendEmail = jest.fn().mockReturnValue(true);
     const validItem = new Item("test", "Ceci est une descr");
     const secondItem = new Item("secondItem", "Ceci est une descr");
-    EmailSenderService.sendEmail = jest.fn().mockReturnValue(true);
-
     const validUser = new User(
         "john",
         "Doe",

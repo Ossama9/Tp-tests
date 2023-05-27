@@ -4,11 +4,9 @@ const EmailSenderService = require("../Services/EmailSenderService");
 class ToDoList {
 
     constructor(user) {
-
         if (!(user instanceof User)) {
             throw new Error('User doit être une instance de la classe User.');
         }
-
         this.user = user;
         this.items = [];
         this.lastItemCreationDate = null;
